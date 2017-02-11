@@ -5,4 +5,4 @@ colorscheme solarized
 set background=dark
 
 " setting guifont
-set guifont=Monaco:h12
+set guifont=Monospace,Monaco:h12
