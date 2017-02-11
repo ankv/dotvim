@@ -1,10 +1,12 @@
-## Installation
+# Installation
 
-    cd ~
-    mkdir .vim
-    git clone git@github.com:ankv/dotvim.git ~/.vim
-    ln -s ~/.vim/vimrc ~/.vimrc
-    ln -s ~/.vim/gvimrc ~/.gvimrc
-    cd ~/.vim
-    chmod +x install.sh
-    ./install.sh
+Create backup for your existing .vimrc and .gvimrc file as those will be deleted by install.sh script
+  
+```sh
+$ cd ~
+$ mkdir .vim
+$ git clone https://github.com/ankv/dotvim.git ~/.vim
+$ cd ~/.vim
+$ chmod +x install.sh
+$ ./install.sh
+```

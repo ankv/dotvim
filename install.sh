@@ -1,4 +1,20 @@
-#! /usr/bin/bash
+#! /bin/bash
+
+# delete existing .vimrc file 
+if [ -f ~/.vimrc ];
+then
+  rm ~/.vimrc
+fi
+
+ln -s ~/.vim/vimrc ~/.vimrc
+
+# delete existing .gvimrc file
+if [ -f ~/.gvimrc ];
+then
+  rm ~/.gvimrc
+fi
+
+ln -s ~/.vim/vimrc ~/.vimrc
 
 # creating bundle directory to install all plugins
 mkdir ~/.vim/bundle
