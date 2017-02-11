@@ -14,7 +14,7 @@ then
   rm ~/.gvimrc
 fi
 
-ln -s ~/.vim/vimrc ~/.vimrc
+ln -s ~/.vim/gvimrc ~/.gvimrc
 
 # creating bundle directory to install all plugins
 mkdir ~/.vim/bundle
