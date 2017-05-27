@@ -21,6 +21,9 @@ Plugin 'qpkorr/vim-bufkill'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'vimwiki/vimwiki'
+Plugin 'suan/vim-instant-markdown'
+Plugin 'szw/vim-maximizer'
+Plugin 'tpope/vim-surround'
 
 
 " All of your Plugins must be added before the following line
@@ -99,8 +102,8 @@ set backspace=indent,eol,start
 " set listchars=eol:?�
 " set list
 
-" mapping leader key
-let mapleader = ","
+" mapping leader key apart from "\" key
+" let mapleader = ","
 
 " mapping window switching keys with Ctrl
 nnoremap <C-h> <C-w>h
@@ -125,6 +128,21 @@ set ruler
 set nobackup
 set nowb
 set noswapfile
+
+" absolute number when in insert mode otherwise relative numbering
+autocmd InsertEnter * :set norelativenumber
+autocmd InsertLeave * :set relativenumber
+
+" toggle relative numbering with <C-n>
+function! NumberToggle()
+  if(&relativenumber == 1)
+    set norelativenumber
+  else
+    set relativenumber
+  endif
+endfunc
+
+nnoremap <C-n> :call NumberToggle()<cr>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " all mapping with leader
@@ -157,17 +175,17 @@ nnoremap <silent> <leader>c :BD<CR>
 nnoremap <silent> <leader>mbe :MBEToggle<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" all mapping with ;
+" all mapping with <leader>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " map :quit
-nnoremap <silent> ;q :quit<CR>
+nnoremap <silent> <leader>q :quit<CR>
 
 " map :write
-nnoremap <silent> ;w :write<CR>
+nnoremap <silent> <leader>w :write<CR>
 
 " for easy help after typing ;h type the help text
-nnoremap ;h :help<space>
+" nnoremap <silent> <leader>h :help<space>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " all mapping with alt key or meta key <M-..>
@@ -178,6 +196,16 @@ nnoremap ;h :help<space>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 nnoremap <F5> :GundoToggle<CR>
+
+" open file:line_no under cursor in new window
+nnoremap <F8> <C-w>F<CR>
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" In General
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Treat all numerals as decimal
+set nrformats=
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " ignore files in nerdtree
@@ -206,9 +234,9 @@ let g:airline#extensions#branch#enabled=1
 "  setting for vimwiki
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " heading colors
-hi VimwikiHeader1 guifg=#FF0000
-hi VimwikiHeader2 guifg=#00FF00
-hi VimwikiHeader3 guifg=#0000FF
-hi VimwikiHeader4 guifg=#FF00FF
-hi VimwikiHeader5 guifg=#00FFFF
-hi VimwikiHeader6 guifg=#FFFF00
+" hi VimwikiHeader1 guifg=#FF0000
+" hi VimwikiHeader2 guifg=#00FF00
+" hi VimwikiHeader3 guifg=#0000FF
+" hi VimwikiHeader4 guifg=#FF00FF
+" hi VimwikiHeader5 guifg=#00FFFF
+" hi VimwikiHeader6 guifg=#FFFF00
