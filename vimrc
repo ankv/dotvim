@@ -79,6 +79,10 @@ set expandtab
 " always set autoindenting on
 set autoindent
 
+" wrap long lines with indentation
+set breakindent
+set showbreak=\\\\\
+
 " wrap text after 80 chars
 " set textwidth=80
 
@@ -200,12 +204,37 @@ nnoremap <F5> :GundoToggle<CR>
 " open file:line_no under cursor in new window
 nnoremap <F8> <C-w>F<CR>
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" General mappings
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Enable simple form of dot repetition over visual line selections. Start from
+" begining of line
+xnoremap . :norm.<CR>
+
+" Typing Q with a visual line selectio in effect will execute the q macro over
+" just the selected lines
+xnoremap Q :'<,'>:normal @q<CR>
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " In General
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Treat all numerals as decimal
 set nrformats=
+
+" Autosave and Autoread
+" Autosave will automatically save to disk the currently edited buffer upon
+" leaving insert mode as well as after a text edit has occurred
+" Autoread will automatically update an open buffer if it has been changed
+" outside the current edit session, usually by an external program
+
+set autoread
+augroup autoSaveAndRead
+  autocmd!
+  autocmd TextChanged,InsertLeave,FocusLost * silent! wall
+  autocmd CursorHold * silent! checktime
+augroup END
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " ignore files in nerdtree
