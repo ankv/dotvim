@@ -13,17 +13,20 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'tpope/vim-fugitive'
 Plugin 'sjl/gundo.vim'
-Plugin 'fholgado/minibufexpl.vim'
-Plugin 'scrooloose/nerdtree'
 Plugin 'majutsushi/tagbar'
 Plugin 'vim-airline/vim-airline'
 Plugin 'qpkorr/vim-bufkill'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'christoomey/vim-tmux-navigator'
-Plugin 'vimwiki/vimwiki'
 Plugin 'suan/vim-instant-markdown'
 Plugin 'szw/vim-maximizer'
 Plugin 'tpope/vim-surround'
+Plugin 'tomlion/vim-solidity'
+Plugin 'vim-syntastic/syntastic'
+Plugin 'tpope/vim-unimpaired'
+" this plugin is required by vim-session
+Plugin 'xolox/vim-misc'
+Plugin 'xolox/vim-session'
 
 
 " All of your Plugins must be added before the following line
@@ -47,7 +50,7 @@ filetype plugin indent on    " required
 syntax on
 
 " detect file type and enable loading the plugin file for specific file types
-" filetype plugin on
+filetype plugin on
 
 " detect file type and enable loading the indent file for specific file types
 filetype indent on
@@ -102,6 +105,9 @@ set incsearch
 " delete with delete key mac
 set backspace=indent,eol,start
 
+" to display status line always
+set laststatus=2
+
 " give us nice EOL ( end of line ) characters
 " set listchars=eol:?�
 " set list
@@ -120,7 +126,8 @@ let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
 
 " Automatically update a file if it is changed externally
-set autoread
+" More advanced setup at bottom
+" set autoread
 
 " height of command bar
 set cmdheight=1
@@ -154,10 +161,7 @@ nnoremap <C-n> :call NumberToggle()<cr>
 
 " display the buffer list and then you can enter desired buffer num and hit
 " enter to edit that buffer
-nnoremap <F4> :buffers<CR>:buffer<Space>
-
-" switch between current and previous buffer
-"nnoremap 0 <C-^>
+" nnoremap <F4> :buffers<CR>:buffer<Space>
 
 " quickly edit/reload vimrc file
 nnoremap <leader>ev :split $MYVIMRC<CR>
@@ -169,14 +173,8 @@ nnoremap <leader><space> :let @/=""<CR><C-l>
 " to toggle tagbar
 nnoremap <silent> <leader>t :TagbarToggle<CR>
 
-" toggle nerdtree
-nnoremap <silent> <leader>n :NERDTreeToggle<CR>
-
 " delete buffer without closing window
 nnoremap <silent> <leader>c :BD<CR>
-
-" toggle minibufexplore
-nnoremap <silent> <leader>mbe :MBEToggle<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " all mapping with <leader>
@@ -202,7 +200,7 @@ nnoremap <silent> <leader>w :write<CR>
 nnoremap <F5> :GundoToggle<CR>
 
 " open file:line_no under cursor in new window
-nnoremap <F8> <C-w>F<CR>
+" nnoremap <F8> <C-w>F<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " General mappings
@@ -237,13 +235,6 @@ augroup autoSaveAndRead
 augroup END
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" ignore files in nerdtree
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" ignore .pyc files
-let NERDTreeIgnore = ['\.pyc$']
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " airline status line configuraiton
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -260,12 +251,18 @@ let g:airline#extensions#branch#enabled=1
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"  setting for vimwiki
+" settings for vim-sessions plugin
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" heading colors
-" hi VimwikiHeader1 guifg=#FF0000
-" hi VimwikiHeader2 guifg=#00FF00
-" hi VimwikiHeader3 guifg=#0000FF
-" hi VimwikiHeader4 guifg=#FF00FF
-" hi VimwikiHeader5 guifg=#00FFFF
-" hi VimwikiHeader6 guifg=#FFFF00
+let g:session_autosave = 'no'
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"  Syntastic Settings
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
