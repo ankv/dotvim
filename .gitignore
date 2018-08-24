@@ -4,5 +4,5 @@ bundle/
 " ignore session directory
 sessions/
 
-" ignore netrw plugin history records
-.netrwhist
+" ignore hidden files
+.*
